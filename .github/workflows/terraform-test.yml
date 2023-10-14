@@ -14,6 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # Login to Azure via Azure CLI
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
