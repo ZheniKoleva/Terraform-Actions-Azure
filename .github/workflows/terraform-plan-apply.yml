@@ -44,7 +44,7 @@ jobs:
       - name: Publish Terraform Plan
         uses: actions/upload-artifact@v2
         with:
-          name: plan
+          name: tfplan
           path: tfplan
 
   terraform-apply:
@@ -69,8 +69,8 @@ jobs:
       - name: Download Terraform Plan
         uses: actions/download-artifact@v2
         with:
-          name: plan 
+          name: tfplan 
 
       # Terraform apply
       - name: Terraform Apply
-        run: terraform apply -auto-approve plan
+        run: terraform apply -auto-approve tfplan
