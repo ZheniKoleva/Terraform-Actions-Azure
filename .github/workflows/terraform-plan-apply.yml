@@ -67,8 +67,7 @@ jobs:
       - name: Download Terraform Plan
         uses: actions/download-artifact@v2
         with:
-          name: plan
-          path: tfplan
+          name: plan          
 
       # Terraform apply
       - name: Terraform Apply
