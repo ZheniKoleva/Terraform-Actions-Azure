@@ -7,9 +7,9 @@ terraform {
   }
 
   backend "azurerm" {
-    resource_group_name  = "StorageRG"
-    storage_account_name = "taskboardstoragezheni"
-    container_name       = "taskboard-container"
+    resource_group_name  = var.resource_group_name_storage
+    storage_account_name = var.storage_account_name
+    container_name       = var.storage_container_name
     key                  = "terraform.tfstate"
   }
 }
@@ -86,4 +86,26 @@ resource "azurerm_app_service_source_control" "source_control" {
   repo_url               = var.repo_URL
   branch                 = "main"
   use_manual_integration = true
+}
+
+resource "azurerm_resource_group" "storage_rg" {
+  name     = var.resource_group_name_storage
+  location = var.resource_group_location
+}
+
+resource "azurerm_storage_account" "storage_account" {
+  name                     = "${var.storage_account_name}${random_integer.integer.result}"
+  resource_group_name      = azurerm_resource_group.storage_rg.name
+  location                 = var.resource_group_location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  enable_https_traffic_only = true
+
+  depends_on = [azurerm_resource_group.rg]
+}
+
+resource "azurerm_storage_container" "storage_container" {
+  name                  = var.storage_container_name
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = "private"
 }

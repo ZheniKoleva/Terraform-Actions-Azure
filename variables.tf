@@ -47,3 +47,18 @@ variable "repo_URL" {
   type        = string
   description = "Repo URL in GitHub"
 }
+
+variable "resource_group_name_storage" {
+  type        = string
+  description = "Storage resource group name in Azure"
+}
+
+variable "storage_account_name" {
+  type        = string
+  description = "The name of the storage account"
+}
+
+variable "storage_container_name" {
+  type        = string
+  description = "The name of the storage container"
+}
