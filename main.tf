@@ -109,3 +109,20 @@ resource "azurerm_storage_container" "storage_container" {
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 }
+
+resource "azurerm_ad_application" "service_principal" {
+  display_name = var.service_principal
+}
+
+resource "azurerm_msi" "service_principal_msi" {
+  name                = var.service_principal_msi_name
+  resource_group_name = azurerm_resource_group.rg.name
+  depends_on = [azurerm_ad_application.service_principal]
+}
+
+resource "azurerm_role_assignment" "service_principal_contributor" {
+  principal_id = azurerm_ad_application.service_principal.application_id
+  role_definition_name = "Contributor"
+  scope = azurerm_resource_group.rg.id
+  depends_on = [azurerm_msi.service_principal_msi]
+}

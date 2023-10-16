@@ -62,3 +62,13 @@ variable "storage_container_name" {
   type        = string
   description = "The name of the storage container"
 }
+
+variable "service_principal" {
+  type        = string
+  description = "Service principal name"
+}
+
+variable "service_principal_msi_name" {
+  type        = string
+  description = "Service principal msi name"
+}
