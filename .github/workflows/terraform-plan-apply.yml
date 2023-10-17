@@ -34,19 +34,7 @@ jobs:
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
-        run: terraform init
-      
-      # Create storage resource group  
-      - name: Create Resource Group
-        run: terraform apply -auto-approve -target=azurerm_resource_group.rg
-      
-      # Create storage account
-      - name: Create Storage Account
-        run: terraform apply -auto-approve -target=azurerm_resource_group.storage_rg
-      
-      # Create storage container
-      - name: Create Azure Storage Container
-        run: terraform apply -auto-approve -target=azurerm_storage_container.storage_container
+        run: terraform init  
     
       # Generate an execution plan for Terraform
       - name: Terraform Plan
